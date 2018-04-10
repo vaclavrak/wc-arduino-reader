@@ -12,7 +12,5 @@ Package: arduino-reader
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},python3 (>=3.1),python3-pip
 Description: read serial codes from arduino
- ARDUINO SERIAL CODE READER
- ==========================
+ <ARDUINO SERIAL CODE READER\n==========================\nread all codes from arduino and set it in all appropriate targets>
 
-read all codes from arduino and set it in all appropriate targets
