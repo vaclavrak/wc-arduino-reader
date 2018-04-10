@@ -5,7 +5,7 @@ Maintainer: Vaclav Rak <rak@webwye.services>
 Build-Depends: debhelper (>=9),dh-python
 Standards-Version: 3.9.6
 Homepage: http://webeye.services/
-#Vcs-Git: git://anonscm.debian.org/collab-maint/image-postprocesor.git
+
 
 
 Package: arduino-reader
