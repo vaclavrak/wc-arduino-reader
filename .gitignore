@@ -119,3 +119,4 @@ pyvenv.cfg
 pip-selfcheck.json
 
 .idea/*
+/wc-arduino-reader.iml
