@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# read arduino, this run the daemon
+#
+# created by Vena <rak@webeye.services>
+# date 04/2018
+# web https://webeye.services
+#
+
+run_daemon(){
+  . /var/lib/webcam/arduino-reader/venv/bin/activate
+  cd /var/lib/webcam/arduino-reader/src
+  python manage.py read_serial -c /etc/webcam/serial-arduino.yml
+}
+
+show_help(){
+  cat <<EOF
+Webeye.Services Read Arduino
+============================
+
+systemd application what have only one purpose, continually read serial port
+
+Parameters:
+ $0 help:           show this help screen
+ $0 logs:           view logs in follow mode
+ $0 run-daemon:     run daemon in systemd
+ $0 status:         show systemd status
+EOF
+
+}
+
+if [ -z "$*" ] ; then
+    show_help
+fi
+
+case "$1" in
+    logs) journalctl -u wc-read-arduino.service -n -f;;
+    status) systemctl status wc-read-arduino.service ;;
+    run-daemon) run_daemon;;
+    help) show_help;;
+    *) echo 'unknown parameters' ;;
+esac
