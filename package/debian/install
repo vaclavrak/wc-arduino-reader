@@ -1,3 +1,3 @@
 src/ var/lib/webcam/arduino-reader
-bin/ var/lib/webcam/arduino-reader
+package/bin/ var/lib/webcam/arduino-reader
 requirements.txt var/lib/webcam/arduino-reader
