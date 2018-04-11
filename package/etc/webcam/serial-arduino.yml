@@ -1,0 +1,132 @@
+---
+#
+# serial port settings
+# for RPi <= 2
+# WES_SERIAL_COM: '/dev/ttyAMA0'
+# for RPi >= 3
+# WES_SERIAL_COM: '/dev/ttyS0'
+#
+
+serial:
+  device: "/dev/pts/25"
+#  device: "/dev/ttyS0"
+  speed: 9600
+
+targets:
+  carbon:
+    host: "172.30.0.78"
+    port: 2003
+
+  redis:
+    host: "127.0.50.1"
+    port: 6379
+    database: 1
+  file: "True"
+
+#
+# this is global prefix for all metrics, generally is used hostname, if we do not add global
+# prefix and we have more devices we could mess these devices together
+#
+# global_prefix: "my_host"
+#
+
+consumers:
+
+  Light:
+    keys:
+      - {'UV': ['light', 'uv']}
+      - {'LS': ['light', 'volume']}
+    targets:
+      - redis
+      - carbon
+
+
+  Power:
+    keys:
+      - {'DI': ['mini_ups', 'current', 'dc'] }
+      - {'BO': ['mini_ups', 'voltage', 'battery'] }
+      - {'AI': ['mini_ups', 'current', 'camera_consumption'] }
+      - {'U1': ['mini_ups', 'voltage', 'input_24V'] }
+      - {'U2': ['mini_ups', 'voltage', 'input_15V'] }
+      - {'U3': ['mini_ups', 'voltage', 'input_5V'] }
+      - {'RP': ['mini_ups', 'power_state', 'rpi'] }
+      - {'CP': ['mini_ups', 'power_state', 'camera'] }
+      - {'CV': ['mini_ups', 'voltage', 'camera'] }
+
+    voltage:
+      min4picture: 13.0
+      min4poweroff: 5.0
+
+    targets:
+      - redis
+      - carbon
+
+  Rain:
+    type: 'collector_i2c'
+#    type: 'chmi'
+    keys:
+      - {'RA': ['rain', 'switches']}
+#      - {'RA': ['rain', 'precipitation']}  # for chmi
+    targets:
+      - redis
+      - carbon
+
+  Network:
+    keys:
+      - {'IP' : ['net', 'ip'] }
+      - {'GW' : ['net', 'gw'] }
+      - {'IN' : ['net', 'internet'] }
+      - {'VN' : ['net', 'vpn'] }
+    targets:
+      file:
+        fileName: "/tmp/serial_{key}.txt"
+      carbon:
+        except:
+          - 'IP'
+          - 'GW'
+      redis:
+        t: 1
+
+  Monitor:
+    keys:
+      - {'WD' : ['watchdog', 'counter'] }
+      - {'WL' : ['watchdog', 'limit'] }
+      - {'FS' : ['aircon', 'funspeed_max'] }
+      - {'PS' : ['power', 'switch'] }
+      - {'PO' : ['power', 'timeout'] }
+      - {'RS' : ['switch', 'restart' ] }
+      - {'OP' : ['switch', 'open'] }
+      - {'TI' : ['temperature', 'in'] }
+      - {'ST' : ['temperature', 'in2'] }
+      - {'TO' : ['temperature', 'out'] }
+      - {'HI' : ['humidity', 'in'] }
+
+    targets:
+      - redis
+      - carbon
+
+  DateTime:
+    keys:
+      - {'TM': ['date_time', 'rtc_time'] }
+      - {'DT': ['date_time', 'rtc_date'] }
+      - {'RT': ['date_time', 'restart_time'] }
+      - {'RD': ['date_time', 'restart_date'] }
+
+    targets:
+      file:
+        fileName: "/tmp/serial_{last_key}.txt"
+
+  Aircon:
+    keys:
+      - {'VP': ['aircon', 'ventilation'] }
+      - {'HP': ['aircon', 'heater'] }
+      - {'AC': ['aircon', 'state'] }
+      - {'MV': ['temperature', 'ventilation_max'] }
+      - {'NV': ['temperature', 'ventilation_mim'] }
+      - {'MH': ['temperature', 'heater_max'] }
+      - {'NH': ['temperature', 'heater_min'] }
+
+    targets:
+      - redis
+      - carbon
+
