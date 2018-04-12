@@ -10,7 +10,7 @@ Homepage: http://webeye.services/
 
 Package: arduino-reader
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},python3 (>=3.1),python3-pip
+Depends: ${shlibs:Depends}, ${misc:Depends},python3 (>=3.1),python3-pip,python3-numpy
 Description: read serial codes from arduino
  <ARDUINO SERIAL CODE READER\n==========================\nread all codes from arduino and set it in all appropriate targets>
 
