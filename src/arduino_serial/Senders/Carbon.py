@@ -4,7 +4,6 @@ from arduino_serial.Senders.BasicSender import Sender
 import time
 import calendar
 
-from carbon.client import metrics
 import socket
 from logging import getLogger
 

@@ -2,3 +2,4 @@ src/ var/lib/webcam/arduino-reader
 package/bin/ var/lib/webcam/arduino-reader
 package/etc/ etc/
 requirements.txt var/lib/webcam/arduino-reader
+debian/wc-readarduino.service /lib/systemd/system/

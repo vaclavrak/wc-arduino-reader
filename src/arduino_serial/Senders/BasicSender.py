@@ -3,6 +3,7 @@ from abc import abstractmethod
 from locale import str
 from time import time
 import socket
+from copy import copy
 from arduino_serial.Controller import Configurator
 
 
@@ -147,7 +148,7 @@ class SenderList(object):
 
     def send_data(self, key:list, value:str, origin_code: str) -> object:
         for s in self._senders:
-            self._senders[s].send_data(key, value, origin_code)
+            self._senders[s].send_data(copy(key), value, origin_code)
         return self
 
     def flush(self):

@@ -10,6 +10,7 @@
 serial:
   device: "/dev/pts/25"
 #  device: "/dev/ttyS0"
+#  device: "/dev/ttyAMA0"
   speed: 9600
 
 targets:

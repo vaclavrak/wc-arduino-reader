@@ -24,12 +24,14 @@ configure()
 	mkdir /etc/webcam/$app_name.d -p
 	cd /var/lib/webcam/$app_name; 
 	pip3 install virtualenv
-	virtualenv -p python3 venv
+	virtualenv   --system-site-packages -p python3 venv
 	chmod +x /var/lib/webcam/$app_name/venv/bin/activate 
 	. /var/lib/webcam/$app_name/venv/bin/activate
 	pip3 install -r requirements.txt
 	chmod +x /var/lib/webcam/$app_name/bin/wc-readarduino
 	ln -sf /var/lib/webcam/$app_name/bin/wc-readarduino /usr/local/bin/wc-readarduino
+	systemctl daemon-reload
+    systemctl enable wc-readarduino.service
 }
 
 

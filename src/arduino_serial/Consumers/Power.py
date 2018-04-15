@@ -67,8 +67,8 @@ class PowerCodeConsumer(CodeConsumer):
                     mean = numpy.mean(self._queue[c])
                     self.senders.send_data(key, mean, c)
                     # no external power supply
+                    key[-1] = 'power_state'
                     if mean < 5:
-                        key[-1] = 'power_state'
                         self.senders.send_data(key, 0, c)
                     else:
                         self.senders.send_data(key, 1, c)

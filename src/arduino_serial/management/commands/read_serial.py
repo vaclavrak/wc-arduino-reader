@@ -31,8 +31,8 @@ class Command(BaseCommand):
         logger.info("Going to stop")
 
     def add_arguments(self, parser):
-        parser.add_argument('--cnf', '-c', dest='config',  default="/etc/webcam/serial-arduino.yml",
-                            help='config file default is /etc/webcam/serial-arduino.yml')
+        parser.add_argument('--cnf', '-c', dest='config',  default="/etc/webcam/serial-arduino.yml.example",
+                            help='config file default is /etc/webcam/serial-arduino.yml.example')
 
     def handle(self, *args, **options):
         conf = options['config']
