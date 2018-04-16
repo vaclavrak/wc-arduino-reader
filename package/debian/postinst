@@ -19,7 +19,7 @@ set -e
 
 configure()
 {
-
+    systemctl stop wc-readarduino.service
 	app_name="arduino-reader"
 	mkdir /etc/webcam/$app_name.d -p
 	cd /var/lib/webcam/$app_name; 

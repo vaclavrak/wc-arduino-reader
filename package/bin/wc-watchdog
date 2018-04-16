@@ -27,7 +27,7 @@ Webeye.Services Reset Watch dog
 application reset Arduino Watch Dog (safeguard for freezed RPi)
  $0 status      show WD status
  $0 reset       set WD to 0
-
+EOF
 }
 
 if [ -z "$*" ] ; then

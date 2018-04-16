@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         conf = options['config']
-        config = Configurator().read(conf)
+        config = Configurator().set_watch(False).read(conf)
         _host = config.get_kv("targets/redis/host", "localhost")
         _port = config.get_kv("targets/redis/port", 6379)
         _db = config.get_kv("targets/redis/database", 0)

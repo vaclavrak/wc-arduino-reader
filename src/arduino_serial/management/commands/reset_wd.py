@@ -31,14 +31,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         conf = options['config']
-        config = Configurator().read(conf)
+        config = Configurator().set_watch(False).read(conf)
 
         serial_com = config.get_kv("serial/device")
         serial_speed = config.get_kv("serial/speed", 9600)
 
         ser = Serial(serial_com, serial_speed)
 
-        ser.write('1/1/')
+        ser.write(bytes('1/1/', 'utf-8'))
         ser.flush()
         time.sleep(1)
         ser.close()
