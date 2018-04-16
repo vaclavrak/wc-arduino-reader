@@ -35,7 +35,7 @@ fi
 
 case "$1" in
     logs) journalctl -u wc-read-arduino.service -n -f;;
-    status) systemctl status wc-read-arduino.service ;;
+    status) systemctl status wc-readarduino.service ;;
     run-daemon) run_daemon;;
     help) show_help;;
     *) echo 'unknown parameters' ;;
