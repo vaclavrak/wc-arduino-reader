@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# read arduino, this run the daemon
+#
+# created by Vena <rak@webeye.services>
+# date 04/2018
+# web https://webeye.services
+#
+
+reset_wd(){
+  . /var/lib/webcam/arduino-reader/venv/bin/activate
+  cd /var/lib/webcam/arduino-reader/src
+  python manage.py reset_wd -c /etc/webcam/serial-arduino.yml
+}
+
+show_wd(){
+  . /var/lib/webcam/arduino-reader/venv/bin/activate
+  cd /var/lib/webcam/arduino-reader/src
+  python manage.py show_wd -c /etc/webcam/serial-arduino.yml
+}
+
+show_help(){
+  cat <<EOF
+Webeye.Services Reset Watch dog
+===============================
+
+application reset Arduino Watch Dog (safeguard for freezed RPi)
+ $0 status      show WD status
+ $0 reset       set WD to 0
+
+}
+
+if [ -z "$*" ] ; then
+    show_help
+fi
+
+case "$1" in
+    status) show_wd;;
+    reset) reset_wd;;
+    help) show_help;;
+    *) echo 'unknown parameters' ;;
+esac

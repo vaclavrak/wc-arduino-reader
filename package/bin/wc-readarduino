@@ -23,6 +23,7 @@ systemd application what have only one purpose, continually read serial port
 Parameters:
  $0 help:           show this help screen
  $0 logs:           view logs in follow mode
+ $0 restart:        restart daemon
  $0 run-daemon:     run daemon in systemd
  $0 status:         show systemd status
 EOF
@@ -36,6 +37,7 @@ fi
 case "$1" in
     logs) journalctl -u wc-readarduino.service -n -f;;
     status) systemctl status wc-readarduino.service ;;
+    restart) systemctl restart wc-readarduino.service ;;
     run-daemon) run_daemon;;
     help) show_help;;
     *) echo 'unknown parameters' ;;
