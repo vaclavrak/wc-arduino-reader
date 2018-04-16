@@ -30,8 +30,12 @@ configure()
 	pip3 install -r requirements.txt
 	chmod +x /var/lib/webcam/$app_name/bin/wc-readarduino
 	chmod +x /var/lib/webcam/$app_name/bin/wc-watchdog
+	chmod +x /var/lib/webcam/$app_name/bin/wc-network
+	chmod +x /var/lib/webcam/$app_name/bin/wc-aircon
 	ln -sf /var/lib/webcam/$app_name/bin/wc-readarduino /usr/local/bin/wc-readarduino
 	ln -sf /var/lib/webcam/$app_name/bin/wc-watchdog /usr/local/bin/wc-watchdog
+	ln -sf /var/lib/webcam/$app_name/bin/wc-network /usr/local/bin/wc-network
+	ln -sf /var/lib/webcam/$app_name/bin/wc-aircon /usr/local/bin/wc-aircon
 	systemctl daemon-reload
     systemctl enable wc-readarduino.service
 }

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# read arduino, this run the daemon
+#
+# created by Vena <rak@webeye.services>
+# date 04/2018
+# web https://webeye.services
+#
+
+ac_off(){
+  . /var/lib/webcam/arduino-reader/venv/bin/activate
+  cd /var/lib/webcam/arduino-reader/src
+  python manage.py ac_off -c /etc/webcam/serial-arduino.yml
+}
+
+ac_on(){
+  . /var/lib/webcam/arduino-reader/venv/bin/activate
+  cd /var/lib/webcam/arduino-reader/src
+  python manage.py ac_on -c /etc/webcam/serial-arduino.yml
+}
+
+show_help(){
+  cat <<EOF
+Webeye.Services AirCon control
+===============================
+
+application control Air Condition
+ $0 on      turn air condition on
+ $0 off     turn air condition off
+EOF
+}
+
+if [ -z "$*" ] ; then
+    show_help
+fi
+
+case "$1" in
+    on) ac_on;;
+    off) ac_off;;
+    help) show_help;;
+    *) echo 'unknown parameters' ;;
+esac
