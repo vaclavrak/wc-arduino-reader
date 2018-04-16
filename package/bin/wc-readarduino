@@ -34,7 +34,7 @@ if [ -z "$*" ] ; then
 fi
 
 case "$1" in
-    logs) journalctl -u wc-read-arduino.service -n -f;;
+    logs) journalctl -u wc-readarduino.service -n -f;;
     status) systemctl status wc-readarduino.service ;;
     run-daemon) run_daemon;;
     help) show_help;;
