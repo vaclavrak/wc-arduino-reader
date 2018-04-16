@@ -25,6 +25,9 @@ class MonitorCodeConsumer(CodeConsumer):
         if code in self.codes:
             sw = float(value)
             self._queue[code].append(sw)
+            if code == 'WD':
+                (r, cfg) = self.senders.get_by_name("Redis")
+                r.send_data(self.get_key('WD'), sw, 'WD')
             return True
 
         return False

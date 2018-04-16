@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#
+# read arduino, this run the daemon
+#
+# created by Vena <rak@webeye.services>
+# date 04/2018
+# web https://webeye.services
+#
+
+show_ip(){
+    /sbin/ip a show dev eth0 | /bin/grep inet6 -v | /bin/grep inet | /usr/bin/awk '{ print $2}'
+}
+
+show_gw(){
+    /sbin/ip route | /usr/bin/awk '/default/ { print $3 }'
+}
+
+show_mask(){
+    ifconfig "eth0" | sed -rn '2s/ .*:(.*)$/\1/p'
+}
+
+
+show_help(){
+  cat <<EOF
+Webeye.Services Reset Watch dog
+===============================
+
+application reset Arduino Watch Dog (safeguard for freezed RPi)
+ $0 ip          show network IPv4
+ $0 gw          show network GateWay
+ $0 mask        show network mask
+EOF
+}
+
+if [ -z "$*" ] ; then
+    show_help
+fi
+
+case "$1" in
+    ip) show_ip;;
+    gw) show_gw;;
+    mask) reset_mask;;
+    help) show_help;;
+    *) echo 'unknown parameters' ;;
+esac

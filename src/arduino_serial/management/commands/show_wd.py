@@ -12,7 +12,7 @@ logger=getLogger("arduino_serial")
 
 
 class Command(BaseCommand):
-    help = 'Set arduino WD to 0 via command `1/1/`'
+    help = 'Show Watch Dog values'
 
     _stop = False
 
