@@ -3,7 +3,7 @@ Description=WebEye read arduino (serial) data
 Documentation=https://webeye.services
 
 [Service]
-ExecStart=/var/lib/webcam/postproces/bin/wc-readarduino run-daemon
+ExecStart=/usr/local/bin/wc-readarduino run-daemon
 Restart=on-failure
 StartLimitBurst=3
 StartLimitInterval=60s
