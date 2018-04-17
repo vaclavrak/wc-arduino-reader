@@ -34,7 +34,7 @@ set_gw(){
     if [[ "$old_gw" != "$new_gw" ]]; then
         . /var/lib/webcam/arduino-reader/venv/bin/activate
         cd /var/lib/webcam/arduino-reader/src
-        python manage.py  set_display  -c /etc/webcam/serial-arduino.yml gw
+        python manage.py  set_display  -c /etc/webcam/serial-arduino.yml gw $new_gw
         echo "$new_gw" > $old_gw_file
     fi
 }
