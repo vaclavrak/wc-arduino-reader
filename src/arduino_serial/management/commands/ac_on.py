@@ -13,7 +13,7 @@ logger=getLogger("arduino_serial")
 
 
 class Command(BaseCommand):
-    help = 'Turn AC off via command `1/11/0`'
+    help = 'Turn AC on via command `1/11/1`'
 
     _stop = False
 
@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
         ser = Serial(serial_com, serial_speed)
 
-        ser.write(bytes('1/11/0', 'utf-8'))
+        ser.write(bytes('1/11/1', 'utf-8'))
         ser.flush()
         time.sleep(1)
         ser.close()

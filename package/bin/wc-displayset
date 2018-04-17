@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+# read arduino, this run the daemon
+#
+# created by Vena <rak@webeye.services>
+# date 04/2018
+# web https://webeye.services
+#
+
+set_ip(){
+    old_ip_file=/tmp/serial_ip.txt
+    old_ip="0.0.0.0"
+    if [[ -f $old_ip_file ]]; then
+     old_ip=$(cat $old_ip_file)
+    fi
+    new_ip=$(wc-network ip)
+    if [[ "$old_ip" != "$new_ip" ]]; then
+         . /var/lib/webcam/arduino-reader/venv/bin/activate
+         cd /var/lib/webcam/arduino-reader/src
+         python manage.py  set_display  -c /etc/webcam/serial-arduino.yml ip $new_ip
+         echo "$new_ip" > $old_ip_file
+    fi
+}
+
+set_gw(){
+
+    old_gw_file=/tmp/serial_gw.txt
+    old_gw="0.0.0.0"
+    if [[ -f $old_gw_file ]]; then
+     old_gw=$(cat $old_gw_file)
+    fi
+
+    new_gw=$(wc-network gw)
+    if [[ "$old_gw" != "$new_gw" ]]; then
+        . /var/lib/webcam/arduino-reader/venv/bin/activate
+        cd /var/lib/webcam/arduino-reader/src
+        python manage.py  set_display  -c /etc/webcam/serial-arduino.yml gw
+        echo "$new_gw" > $old_gw_file
+    fi
+}
+
+
+
+show_help(){
+  cat <<EOF
+Webeye.Services Set Display Values
+==================================
+
+application set values on display
+
+ $0 ip          set IPv4 on display (wc-network ip)
+ $0 gw          set GateWay on display (wc-network gw)
+ $0 help        show this help
+EOF
+}
+
+if [ -z "$*" ] ; then
+    show_help
+fi
+
+case "$1" in
+    ip) set_ip;;
+    gw) set_gw;;
+    mask) set_mask;;
+    help) show_help;;
+    *) echo 'unknown parameters' ;;
+esac

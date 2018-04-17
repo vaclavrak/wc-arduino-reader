@@ -8,7 +8,7 @@
 #
 
 show_ip(){
-    /sbin/ip a show dev eth0 | /bin/grep inet6 -v | /bin/grep inet | /usr/bin/awk '{ print $2}'
+    /sbin/ip a show dev eth0 | /bin/grep inet6 -v | /bin/grep inet | /usr/bin/awk '{ print $2}' | cut -d "/" -f1
 }
 
 show_gw(){
@@ -39,7 +39,7 @@ fi
 case "$1" in
     ip) show_ip;;
     gw) show_gw;;
-    mask) reset_mask;;
+    mask) show_mask;;
     help) show_help;;
     *) echo 'unknown parameters' ;;
 esac
