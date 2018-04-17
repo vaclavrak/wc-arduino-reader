@@ -19,7 +19,10 @@ set -e
 
 configure()
 {
-    systemctl stop wc-readarduino.service
+    ac=$(systemctl is-active wc-readarduino.service)
+    if [[ "$ac" -eq "active" ]]; then
+        systemctl stop wc-readarduino.service
+    fi
 	app_name="arduino-reader"
 	mkdir /etc/webcam/$app_name.d -p
 	cd /var/lib/webcam/$app_name; 
@@ -32,10 +35,12 @@ configure()
 	chmod +x /var/lib/webcam/$app_name/bin/wc-watchdog
 	chmod +x /var/lib/webcam/$app_name/bin/wc-network
 	chmod +x /var/lib/webcam/$app_name/bin/wc-aircon
+	chmod +x /var/lib/webcam/$app_name/bin/wc-displayset
 	ln -sf /var/lib/webcam/$app_name/bin/wc-readarduino /usr/local/bin/wc-readarduino
 	ln -sf /var/lib/webcam/$app_name/bin/wc-watchdog /usr/local/bin/wc-watchdog
 	ln -sf /var/lib/webcam/$app_name/bin/wc-network /usr/local/bin/wc-network
 	ln -sf /var/lib/webcam/$app_name/bin/wc-aircon /usr/local/bin/wc-aircon
+	ln -sf /var/lib/webcam/$app_name/bin/wc-displayset /usr/local/bin/wc-displayset
 	systemctl daemon-reload
     systemctl enable wc-readarduino.service
 }
