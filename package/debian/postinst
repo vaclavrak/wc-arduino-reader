@@ -19,10 +19,10 @@ set -e
 
 configure()
 {
-    ac=$(systemctl is-active wc-readarduino.service)
-    if [[ "$ac" -eq "active" ]]; then
-        systemctl stop wc-readarduino.service
-    fi
+    #ac=$(systemctl is-active wc-readarduino.service)
+    #if [[ "$ac" -eq "active" ]]; then
+    #    systemctl stop wc-readarduino.service
+    #fi
 	app_name="arduino-reader"
 	mkdir /etc/webcam/$app_name.d -p
 	cd /var/lib/webcam/$app_name; 
