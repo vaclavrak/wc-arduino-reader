@@ -7,6 +7,14 @@
 # web https://webeye.services
 #
 
+check_vpn(){
+  ping -q -w 1 -c 1 172.30.0.1 > /dev/null  && echo ok || echo error
+}
+
+check_internet(){
+  ping -q -w 1 -c 1 8.8.8.8 > /dev/null  && echo ok || echo error
+}
+
 show_ip(){
     /sbin/ip a show dev eth0 | /bin/grep inet6 -v | /bin/grep inet | /usr/bin/awk '{ print $2}' | cut -d "/" -f1
 }
@@ -39,6 +47,8 @@ fi
 case "$1" in
     ip) show_ip;;
     gw) show_gw;;
+    internet) check_internet;;
+    vpn) check_vpn;;
     mask) show_mask;;
     help) show_help;;
     *) echo 'unknown parameters' ;;

@@ -13,11 +13,11 @@ set_ip(){
     if [[ -f $old_ip_file ]]; then
      old_ip=$(cat $old_ip_file)
     fi
-    new_ip=$(wc-network ip)
+    new_ip=$(/usr/local/bin/wc-network ip)
     if [[ "$old_ip" != "$new_ip" ]]; then
          . /var/lib/webcam/arduino-reader/venv/bin/activate
          cd /var/lib/webcam/arduino-reader/src
-         python manage.py  set_display  -c /etc/webcam/serial-arduino.yml ip $new_ip
+         python manage.py  set_display  -c /etc/webcam/serial-arduino.yml ip $(/usr/local/bin/wc-network ip)
          echo "$new_ip" > $old_ip_file
     fi
 }
@@ -30,11 +30,11 @@ set_gw(){
      old_gw=$(cat $old_gw_file)
     fi
 
-    new_gw=$(wc-network gw)
+    new_gw=$(/usr/local/bin/wc-network gw)
     if [[ "$old_gw" != "$new_gw" ]]; then
         . /var/lib/webcam/arduino-reader/venv/bin/activate
         cd /var/lib/webcam/arduino-reader/src
-        python manage.py  set_display  -c /etc/webcam/serial-arduino.yml gw $(wc-network gw)
+        python manage.py  set_display  -c /etc/webcam/serial-arduino.yml gw $(/usr/local/bin/wc-network gw)
         echo "$new_gw" > $old_gw_file
     fi
 }

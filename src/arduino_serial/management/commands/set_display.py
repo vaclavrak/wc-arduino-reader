@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
         serial_com = config.get_kv("serial/device")
         serial_speed = config.get_kv("serial/speed", 9600)
-        if options['type'] not in ['ip', 'gw', 'mask']:
+        if options['type'] not in ['ip', 'gw', 'internet', 'vpn']:
             self.stdout.write(self.style.ERROR("Invalid option `type`, valid are `ip`"))
             return -1
         # self.stdout.write(self.style.SUCCESS("`type`: {}".format(options['type'])))
@@ -49,6 +49,10 @@ class Command(BaseCommand):
             ser.write(bytes('1/17/{}'.format(options['value']), 'utf-8'))
         if options['type'] == 'gw':
             ser.write(bytes('1/18/{}'.format(options['value']), 'utf-8'))
+        if options['type'] == 'internet':
+            ser.write(bytes('1/19/{}'.format(options['value']), 'utf-8'))
+        if options['type'] == 'vpn':
+            ser.write(bytes('1/20/{}'.format(options['value']), 'utf-8'))
 
         self.stdout.write(self.style.SUCCESS("`type`: {}, `value` {}".format(options['type'], options['value'])))
         ser.flush()
