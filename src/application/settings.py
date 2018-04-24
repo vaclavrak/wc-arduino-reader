@@ -144,7 +144,13 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
-        }, 'carve.sources': {
+        },
+        'carve.sources': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'arduino_serial': {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,

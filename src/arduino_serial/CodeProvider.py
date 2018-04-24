@@ -93,7 +93,10 @@ class CodeProcessor(object):
             now_timer = int(time.strftime("%S"))
 
             if now_timer < old_timer:
-                self.consumers.flush_buffer()
+                try:
+                    self.consumers.flush_buffer()
+                except Exception as e:
+                    logger.warning("Flush failed message: {message}".format(message=str(e)))
 
             old_timer = now_timer
 
