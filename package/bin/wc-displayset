@@ -8,7 +8,7 @@
 #
 
 set_ip(){
-    old_ip_file=/tmp/_serial_ip.txt
+    old_ip_file=/tmp/serial_ip.txt
     old_ip="0.0.0.0"
     if [[ -f $old_ip_file ]]; then
      old_ip=$(cat $old_ip_file)
@@ -24,7 +24,7 @@ set_ip(){
 
 set_gw(){
 
-    old_gw_file=/tmp/_serial_gw.txt
+    old_gw_file=/tmp/serial_gw.txt
     old_gw="0.0.0.0"
     if [[ -f $old_gw_file ]]; then
      old_gw=$(cat $old_gw_file)
