@@ -46,9 +46,9 @@ class Command(BaseCommand):
 
         ser = Serial(serial_com, serial_speed)
         if options['type'] == 'ip':
-            ser.write(bytes('1/17/{}/'.format(options['value']), 'utf-8'))
+            ser.write(bytes('1/17/{}'.format(options['value']), 'utf-8'))
         if options['type'] == 'gw':
-            ser.write(bytes('1/18/{}/'.format(options['value']), 'utf-8'))
+            ser.write(bytes('1/18/{}'.format(options['value']), 'utf-8'))
 
         self.stdout.write(self.style.SUCCESS("`type`: {}, `value` {}".format(options['type'], options['value'])))
         ser.flush()

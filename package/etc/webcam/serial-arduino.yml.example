@@ -80,7 +80,7 @@ consumers:
       - {'VN' : ['net', 'vpn'] }
     targets:
       file:
-        fileName: "/tmp/serial_{key}.txt"
+        fileName: "/tmp/serial_{last_key}.txt"
       carbon:
         except:
           - 'IP'
