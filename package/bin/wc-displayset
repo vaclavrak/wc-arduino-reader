@@ -22,6 +22,37 @@ set_ip(){
     fi
 }
 
+set_internet(){
+    old_internet_file=/tmp/serial_internet.txt
+    old_internet="unknown"
+    if [[ -f $old_internet_file ]]; then
+     old_internet=$(cat $old_internet_file)
+    fi
+    new_internet=$(/usr/local/bin/wc-network internet)
+    if [[ "$old_internet" != "$new_internet" ]]; then
+         . /var/lib/webcam/arduino-reader/venv/bin/activate
+         cd /var/lib/webcam/arduino-reader/src
+         python manage.py  set_display  -c /etc/webcam/serial-arduino.yml internet $(/usr/local/bin/wc-network internet)
+         echo "$new_internet" > $old_internet_file
+    fi
+}
+
+
+set_vpn(){
+    old_vpn_file=/tmp/serial_vpn.txt
+    old_vpn="unknown"
+    if [[ -f $old_vpn_file ]]; then
+     old_vpn=$(cat $old_vpn_file)
+    fi
+    new_vpn=$(/usr/local/bin/wc-network vpn)
+    if [[ "$old_vpn" != "$new_vpn" ]]; then
+         . /var/lib/webcam/arduino-reader/venv/bin/activate
+         cd /var/lib/webcam/arduino-reader/src
+         python manage.py  set_display  -c /etc/webcam/serial-arduino.yml vpn $(/usr/local/bin/wc-network vpn)
+         echo "$new_vpn" > $old_vpn_file
+    fi
+}
+
 set_gw(){
 
     old_gw_file=/tmp/serial_gw.txt
@@ -50,6 +81,8 @@ application set values on display
 
  $0 ip          set IPv4 on display (wc-network ip)
  $0 gw          set GateWay on display (wc-network gw)
+ $0 internet    set Interner status on display (wc-network internet)
+ $0 vpn         set VPN status on display (wc-network vpn)
  $0 help        show this help
 EOF
 }
@@ -61,6 +94,8 @@ fi
 case "$1" in
     ip) set_ip;;
     gw) set_gw;;
+    internet) set_internet;;
+    vpn) set_vpn;;
     mask) set_mask;;
     help) show_help;;
     *) echo 'unknown parameters' ;;

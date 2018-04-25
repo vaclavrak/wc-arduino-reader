@@ -8,11 +8,11 @@
 #
 
 check_vpn(){
-  ping -q -w 1 -c 1 172.30.0.1 > /dev/null  && echo ok || echo error
+  ping -q -w 1 -c 1 172.30.0.1 > /dev/null  && echo ok || echo fail
 }
 
 check_internet(){
-  ping -q -w 1 -c 1 8.8.8.8 > /dev/null  && echo ok || echo error
+  ping -q -w 1 -c 1 8.8.8.8 > /dev/null  && echo ok || echo fail
 }
 
 show_ip(){
@@ -37,6 +37,8 @@ application reset Arduino Watch Dog (safeguard for freezed RPi)
  $0 ip          show network IPv4
  $0 gw          show network GateWay
  $0 mask        show network mask
+ $0 internet    show internet status (ping 8.8.8.8)
+ $0 vpn         show VPN status (ping 172.30.0.1)
 EOF
 }
 
